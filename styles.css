@@ -1,0 +1,119 @@
+:root{
+  --bg:#0b0b0d;
+  --accent:#caa7ff;
+  --muted:#bfbfbf;
+  --pink:#ffeef6;
+  --impressum-text:#6a2b6e;
+  --hu-bg:#2b153a;
+  --hu-text:#d6b3ff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  color:#eee;
+  background:var(--bg);
+  overflow:hidden;
+}
+
+.header-banner img{
+  width:100%;
+  display:block;
+}
+
+.topbar{
+  position:fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:48px;
+  z-index:80;
+  pointer-events:none;
+}
+.topbar .menu-btn{
+  pointer-events:all;
+  position:absolute;
+  left:14px;
+  top:8px;
+  background:none;
+  border:0;
+  font-size:22px;
+  color:var(--muted);
+  cursor:pointer;
+}
+
+.side-menu{
+  position:fixed;
+  left:0;
+  top:0;
+  height:100%;
+  width:320px;
+  max-width:85%;
+  background:rgba(8,8,10,0.98);
+  color:#fff;
+  padding:28px 20px;
+  transform:translateX(-110%);
+  transition:transform .28s ease;
+  z-index:200;
+  display:flex;
+  flex-direction:column;
+}
+.side-menu.open{transform:translateX(0)}
+.side-menu a{color:var(--muted); text-decoration:none; display:block; padding:10px 0}
+.side-menu .bottom{margin-top:auto; border-top:1px solid rgba(255,255,255,0.1); padding-top:12px}
+
+.film{
+  height:67vh;
+  overflow:hidden;
+  position:relative;
+}
+.film-track{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  height:100%;
+  will-change:transform;
+}
+.film-item{
+  flex:0 0 auto;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  min-width:300px;
+}
+.film-item img{
+  height:90%;
+  width:auto;
+  object-fit:contain;
+  border-radius:6px;
+  box-shadow:0 18px 50px rgba(0,0,0,0.6);
+  opacity:0;
+  transform:translateY(6px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.film-item img.loaded{opacity:1; transform:none}
+
+.download-overlay{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  background:rgba(0,0,0,0.6);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:6px;
+  font-size:14px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .18s ease;
+}
+.download-overlay.visible{opacity:1}
+
+.hu-page,.pastel-page{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:48px 20px}
+.hu-page{background:var(--hu-bg); color:var(--hu-text)}
+.pastel-page{background:var(--pink); color:var(--impressum-text)}
+.hu-box,.pastel-box{max-width:800px; text-align:center}
+.hu-box h1{margin-bottom:20px; font-size:36px}
+.hu-box p{font-size:18px; line-height:1.8}
