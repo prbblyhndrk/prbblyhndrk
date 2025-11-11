@@ -1,1 +1,69 @@
-body{background:#0b0b0d;color:#eee;font-family:sans-serif;margin:0;}img{max-width:100%}.header-banner img{width:100%;display:block}.menu-btn{background:none;border:0;color:#fff;font-size:24px}.side-menu{position:fixed;left:0;top:0;background:#111;color:#fff;width:250px;height:100%;transform:translateX(-100%);transition:.3s;}.side-menu.open{transform:translateX(0)}.side-menu a{color:#ccc;text-decoration:none;display:block;padding:10px 0}.film{height:67vh;overflow:hidden}.film-track{display:flex;gap:12px;align-items:center;height:100%;will-change:transform}.film-item{flex:0 0 auto;height:100%;display:flex;align-items:center;justify-content:center;position:relative;min-width:300px}.film-item img{height:90%;width:auto;object-fit:contain;border-radius:6px;box-shadow:0 18px 50px rgba(0,0,0,0.6)}.download-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.6);color:#fff;padding:8px 12px;border-radius:6px;font-size:14px;opacity:0;pointer-events:none;transition:.2s}.download-overlay.visible{opacity:1}.pastel-page{background:#ffeef6;color:#6a2b6e;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 20px}.download-grid{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}.card{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px;text-align:center}.download-btn{display:inline-block;margin-top:8px;padding:8px 12px;background:#6a2b6e;color:#fff;text-decoration:none;border-radius:6px;font-weight:600}
+:root{
+  --bg:#0b0b0d;
+  --accent:#caa7ff;
+  --muted:#bfbfbf;
+  --pink:#ffeef6;
+  --impressum-text:#6a2b6e;
+  --hu-bg:#2b153a;
+  --hu-text:#d6b3ff;
+  --gap:12px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  color:#eee;
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+}
+
+/* header banner */
+.header-banner{width:100%;display:block;overflow:hidden}
+.header-banner a{display:block}
+.header-banner img{display:block;width:100%;height:auto}
+
+/* topbar / menu button */
+.topbar{position:fixed;left:0;top:0;width:100%;height:56px;z-index:90;pointer-events:none}
+.topbar .menu-btn{pointer-events:all;position:absolute;left:14px;top:10px;background:none;border:0;font-size:26px;color:var(--muted);cursor:pointer;padding:6px}
+
+/* side menu */
+.side-menu{position:fixed;left:0;top:0;height:100%;width:320px;max-width:85%;background:rgba(8,8,10,0.98);color:#fff;padding:28px 20px;transform:translateX(-110%);transition:transform .28s ease;z-index:200;display:flex;flex-direction:column}
+.side-menu.open{transform:translateX(0)}
+.side-menu ul{list-style:none;padding:0;margin:8px 0}
+.side-menu a{color:var(--muted);text-decoration:none;display:block;padding:10px 0}
+.side-menu .bottom{margin-top:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px}
+
+/* film */
+.film{height:67vh;overflow:hidden;position:relative;margin-top:0}
+.film-track{display:flex;gap:var(--gap);align-items:center;height:100%;will-change:transform;transition:transform .06s linear}
+.film-item{flex:0 0 auto;height:100%;display:flex;align-items:center;justify-content:center;position:relative;min-width:280px}
+.film-item img{height:88%;width:auto;object-fit:contain;border-radius:6px;box-shadow:0 14px 40px rgba(0,0,0,0.6);opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.film-item img.loaded{opacity:1;transform:none}
+
+/* overlay */
+.download-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);color:#fff;padding:8px 12px;border-radius:6px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s ease}
+.download-overlay.visible{opacity:1}
+
+/* category grid */
+.download-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
+.card{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px;text-align:center}
+.card img{width:100%;height:auto;border-radius:6px;display:block}
+.download-btn{display:inline-block;margin-top:10px;padding:8px 12px;background:#6a2b6e;color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
+
+/* pages */
+.hu-page,.pastel-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:64px 20px}
+.hu-page{background:var(--hu-bg);color:var(--hu-text)}
+.pastel-page{background:var(--pink);color:var(--impressum-text)}
+.hu-box,.pastel-box{max-width:1000px;text-align:center}
+
+/* responsive */
+@media (max-width:980px){
+  .download-grid{grid-template-columns:repeat(2,1fr)}
+  .film-item{min-width:220px}
+}
+@media (max-width:640px){
+  .download-grid{grid-template-columns:1fr}
+  .topbar .menu-btn{left:8px;top:8px}
+  .film-item{min-width:160px}
+}
