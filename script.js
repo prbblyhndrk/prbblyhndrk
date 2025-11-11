@@ -39,7 +39,7 @@
     var grid = document.getElementById(gridId);
     if(!grid) return; // not on this page
     try{
-      var res = await fetch(txtFile, {cache:'no-cache'});
+      var res = await fetch(txtFile + '?v=' + Date.now());
       if(!res.ok) throw new Error('File not found: '+txtFile);
       var txt = await res.text();
       var lines = txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l.length>0);
