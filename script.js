@@ -35,46 +35,75 @@
     wireMenu(id, map[id]);
   });
 
-  // ---------- Auto-load lists for category pages ----------
-  async function loadListToGrid(txtFile, gridId){
-    var grid = document.getElementById(gridId);
-    if(!grid) return; // not on this page
-    try{
-      var res = await fetch(txtFile + '?v=' + Date.now());
-      if(!res.ok) throw new Error('File not found: '+txtFile);
-      var txt = await res.text();
-      var lines = txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l.length>0);
-      // clear existing content
-      grid.innerHTML = '';
-      lines.forEach(function(name){
-        var div = document.createElement('div');
-        div.className = 'card';
-        var img = document.createElement('img');
-        img.src = safeUrl(name);
-        img.alt = name.replace(/\.[^/.]+$/, '').replace(/[-_]/g,' ');
-        var a = document.createElement('a');
+// ---------- Auto-load lists for category pages ----------
+async function loadListToGrid(txtFile, gridId){
+  var grid = document.getElementById(gridId);
+  if(!grid) return; // not on this page
+  try{
+    var res = await fetch(txtFile + '?v=' + Date.now());
+    if(!res.ok) throw new Error('File not found: '+txtFile);
+    var txt = await res.text();
+    var lines = txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l.length>0);
+    // clear existing content
+    grid.innerHTML = '';
+    lines.forEach(function(name){
+      const div = document.createElement('div');
+      div.className = 'card';
+
+      let media;
+      if (name.toLowerCase().endsWith('.mp4')) {
+        // VIDEO-Element
+        media = document.createElement('video');
+        media.src = safeUrl(name);
+        media.muted = true;
+        media.loop = true;
+        media.preload = 'metadata';
+
+        // Play-Overlay
+        const playIcon = document.createElement('div');
+        playIcon.className = 'play-overlay';
+        playIcon.textContent = '▶';
+
+        // Hover-Steuerung
+        media.addEventListener('mouseenter', () => media.play());
+        media.addEventListener('mouseleave', () => media.pause());
+
+        div.appendChild(media);
+        div.appendChild(playIcon);
+      } else {
+        // BILD-Element
+        media = document.createElement('img');
+        media.src = safeUrl(name);
+        media.alt = name.replace(/\.[^/.]+$/, '').replace(/[-_]/g,' ');
+        div.appendChild(media);
+      }
+
+      // Download-Button nur, wenn es NICHT Just-Art ist
+      if (!location.pathname.endsWith('justart.html')) {
+        const a = document.createElement('a');
         a.className = 'download-btn';
         a.href = safeUrl(name);
         a.download = name;
         a.textContent = 'Download';
-        div.appendChild(img);
         div.appendChild(a);
-        grid.appendChild(div);
-      });
-    }catch(err){
-      console.error('Fehler beim Laden von', txtFile, err);
-      var p = document.createElement('p');
-      p.textContent = 'Fehler beim Laden der Bildliste.';
-      grid.appendChild(p);
-    }
-  }
+      }
 
-  // call loaders on DOM ready
-  document.addEventListener('DOMContentLoaded', function(){
-    loadListToGrid('images-phone.txt', 'phoneGrid');
-    loadListToGrid('images-desktop.txt', 'desktopGrid');
-    loadListToGrid('images-justart.txt', 'justartGrid');
-  });
+      grid.appendChild(div);
+    });
+  } catch(err){
+    console.error('Fehler beim Laden von', txtFile, err);
+    var p = document.createElement('p');
+    p.textContent = 'Fehler beim Laden der Bildliste.';
+    grid.appendChild(p);
+  }
+}
+
+// ---------- call loaders on DOM ready ----------
+document.addEventListener('DOMContentLoaded', function(){
+  loadListToGrid('images-phone.txt', 'phoneGrid');
+  loadListToGrid('images-desktop.txt', 'desktopGrid');
+  loadListToGrid('images-justart.txt', 'justartGrid');
+});
 
   // ---------- Film scroller for homepage ----------
   (function(){
