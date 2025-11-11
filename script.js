@@ -30,6 +30,7 @@
       'menuBtnSocial':'sideMenuSocial',
       'menuBtnPhone':'sideMenuPhone',
       'menuBtnDesktop':'sideMenuDesktop'
+      'menuBtnJust':'sideMenuJust' 
     };
     wireMenu(id, map[id]);
   });
