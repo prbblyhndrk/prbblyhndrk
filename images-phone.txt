@@ -1,8 +1,10 @@
 alien-portrait5.png
 alien-portrait2.png
-blossom-beauty-4.png
-cherry-pop.png
 tiny-moon.png
+blossom-beauty-4.png
+wisteria-castle.png
+egypt.png
+cherry-pop.png
 night-sky.png
 burning-wave.png
 rose.png
