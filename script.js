@@ -29,7 +29,7 @@
       'menuBtnImp':'sideMenuImp',
       'menuBtnSocial':'sideMenuSocial',
       'menuBtnPhone':'sideMenuPhone',
-      'menuBtnDesktop':'sideMenuDesktop'
+      'menuBtnDesktop':'sideMenuDesktop',
       'menuBtnJust':'sideMenuJust' 
     };
     wireMenu(id, map[id]);
