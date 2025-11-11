@@ -51,6 +51,38 @@ body{
 .card img{width:100%;height:auto;border-radius:6px;display:block}
 .download-btn{display:inline-block;margin-top:10px;padding:8px 12px;background:#6a2b6e;color:#fff;text-decoration:none;border-radius:8px;font-weight:600}
 
+/* ---- individuelle Layouts ---- */
+
+/* Desktop-Seite: 2 große Kacheln */
+#desktopGrid.download-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+#desktopGrid .card img {
+  border-radius: 10px;
+  width: 100%;
+  height: auto;
+}
+
+/* Just-Art-Seite: ein großes Werk pro Zeile */
+#justartGrid.download-grid {
+  grid-template-columns: 1fr;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+#justartGrid .card {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+#justartGrid .card img,
+#justartGrid .card video {
+  width: 100%;
+  border-radius: 12px;
+}
+
 /* pages */
 .hu-page,.pastel-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:64px 20px}
 .hu-page{background:var(--hu-bg);color:var(--hu-text)}
@@ -66,4 +98,21 @@ body{
   .download-grid{grid-template-columns:1fr}
   .topbar .menu-btn{left:8px;top:8px}
   .film-item{min-width:160px}
+}
+
+.play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  color: rgba(255,255,255,0.8);
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.card video:hover + .play-overlay {
+  opacity: 0;
+}
+.card {
+  position: relative;
 }
