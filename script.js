@@ -22,7 +22,7 @@
   }
 
   // wire the known menu buttons
-  ['menuBtn','menuBtnHu','menuBtnImp','menuBtnSocial','menuBtnPhone','menuBtnDesktop'].forEach(function(id){
+  ['menuBtn','menuBtnHu','menuBtnImp','menuBtnSocial','menuBtnPhone','menuBtnDesktop','menuBtnJust'].forEach(function(id){
     var map = {
       'menuBtn':'sideMenu',
       'menuBtnHu':'sideMenuHu',
