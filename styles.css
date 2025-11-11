@@ -116,3 +116,15 @@ body{
 .card {
   position: relative;
 }
+
+/* Hochkant-Videos skalieren */
+.card video {
+  width: auto;
+  max-width: 90%;
+  max-height: 90vh;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  object-fit: contain;
+}
