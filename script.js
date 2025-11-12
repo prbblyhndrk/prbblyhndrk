@@ -114,11 +114,12 @@ async function loadSliderImages(){
     slider.innerHTML = ''; // leeren
     lines.forEach(name => {
       // Film-Item mit Bild erzeugen
-      const item = document.createElement('div');
+    const item = document.createElement('div');
       item.className = 'film-item';
-      const img = document.createElement('img');
+    const img = document.createElement('img');
       img.src = safeUrl(name);
       img.alt = name.replace(/\.[^/.]+$/, '').replace(/[-_]/g,' ');
+      img.onload = () => img.classList.add('loaded'); // <- sorgt dafür, dass opacity:1 aktiv wird
       item.appendChild(img);
       slider.appendChild(item);
     });
