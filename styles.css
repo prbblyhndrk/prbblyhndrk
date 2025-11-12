@@ -128,3 +128,13 @@ body{
   margin: 0 auto;
   object-fit: contain;
 }
+
+video {
+  width: 100%;
+  height: auto;
+  display: block;
+  background-color: #000; /* Fallback, falls Video nicht lädt */
+  object-fit: contain;
+  -webkit-transform: translateZ(0); /* Safari zwingt Render */
+  -webkit-mask-image: -webkit-radial-gradient(white, black); /* Safari-Bugfix */
+}
