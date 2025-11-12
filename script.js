@@ -100,8 +100,31 @@ async function loadListToGrid(txtFile, gridId){
   }
 }
 
+  // ---------- Auto-load slider images on homepage ----------
+async function loadSliderImages(){
+  const slider = document.querySelector('.image-slider');
+  if(!slider) return; // nur auf der Startseite
+
+  try {
+    const res = await fetch('images-phone.txt?v=' + Date.now());
+    if(!res.ok) throw new Error('File not found: images-phone.txt');
+    const txt = await res.text();
+    const lines = txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l.length>0);
+
+    slider.innerHTML = ''; // leeren
+    lines.forEach(name => {
+      const img = document.createElement('img');
+      img.src = safeUrl(name);
+      img.alt = name.replace(/\.[^/.]+$/, '').replace(/[-_]/g,' ');
+      slider.appendChild(img);
+    });
+  } catch(err) {
+    console.error('Fehler beim Laden der Slider-Bilder:', err);
+  }
+}
 // ---------- call loaders on DOM ready ----------
 document.addEventListener('DOMContentLoaded', function(){
+  loadSliderImages();
   loadListToGrid('images-phone.txt', 'phoneGrid');
   loadListToGrid('images-desktop.txt', 'desktopGrid');
   loadListToGrid('images-justart.txt', 'justartGrid');
