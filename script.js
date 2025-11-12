@@ -81,7 +81,7 @@ async function loadListToGrid(txtFile, gridId){
       }
 
       // Download-Button nur, wenn es NICHT Just-Art ist
-      if (!location.pathname.endsWith('justart.html')) {
+      if (!window.location.href.includes('justart')) {
         const a = document.createElement('a');
         a.className = 'download-btn';
         a.href = safeUrl(name);
