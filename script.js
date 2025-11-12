@@ -58,6 +58,8 @@ async function loadListToGrid(txtFile, gridId){
         media.muted = true;
         media.loop = true;
         media.preload = 'metadata';
+        media.playsInline = true;
+        media.autoplay = false;
 
         // Play-Overlay
         const playIcon = document.createElement('div');
