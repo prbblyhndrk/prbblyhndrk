@@ -101,27 +101,31 @@
   }
 
   // ---------- Auto-load slider images on homepage ----------
-  async function loadSliderImages(){
-    const slider = document.querySelector('.image-slider');
-    if(!slider) return; // nur auf der Startseite
+async function loadSliderImages(){
+  const slider = document.getElementById('filmTrack');
+  if(!slider) return; // nur auf der Startseite
 
-    try {
-      const res = await fetch('images-phone.txt?v=' + Date.now());
-      if(!res.ok) throw new Error('File not found: images-phone.txt');
-      const txt = await res.text();
-      const lines = txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l.length>0);
+  try {
+    const res = await fetch('images-phone.txt?v=' + Date.now());
+    if(!res.ok) throw new Error('File not found: images-phone.txt');
+    const txt = await res.text();
+    const lines = txt.split(/\r?\n/).map(l=>l.trim()).filter(l=>l.length>0);
 
-      slider.innerHTML = ''; // leeren
-      lines.forEach(name => {
-        const img = document.createElement('img');
-        img.src = safeUrl(name);
-        img.alt = name.replace(/\.[^/.]+$/, '').replace(/[-_]/g,' ');
-        slider.appendChild(img);
-      });
-    } catch(err) {
-      console.error('Fehler beim Laden der Slider-Bilder:', err);
-    }
+    slider.innerHTML = ''; // leeren
+    lines.forEach(name => {
+      // Film-Item mit Bild erzeugen
+      const item = document.createElement('div');
+      item.className = 'film-item';
+      const img = document.createElement('img');
+      img.src = safeUrl(name);
+      img.alt = name.replace(/\.[^/.]+$/, '').replace(/[-_]/g,' ');
+      item.appendChild(img);
+      slider.appendChild(item);
+    });
+  } catch(err) {
+    console.error('Fehler beim Laden der Slider-Bilder:', err);
   }
+}
 
   // ---------- Film scroller ----------
   function initFilmScroller(){
