@@ -7,11 +7,16 @@
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="header-banner"><a href="index.html"><img src="logo2-2880x720.png" alt="logo"></a></header>
-  <div class="topbar"><button id="menuBtn" class="menu-btn" aria-label="Menü">☰</button></div>
+  <header class="header-banner">
+    <a href="index.html"><img src="logo2-2880x720.png" alt="logo"></a>
+  </header>
+
+  <div class="topbar">
+    <button id="menuBtn" class="menu-btn" aria-label="menu">☰</button>
+  </div>
 
   <nav id="sideMenu" class="side-menu" aria-hidden="true">
-    <h3>Menü</h3>
+    <h3>menu</h3>
     <ul>
       <li><a href="hu.html">who tf i am</a></li>
       <li><a href="phone.html">phone</a></li>
@@ -24,10 +29,10 @@
 
   <main>
     <section class="film" aria-label="Galerie">
-  <div class="film-track image-slider"></div>
-</section>
+      <div class="film-track" id="filmTrack"></div>
+    </section>
   </main>
 
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
