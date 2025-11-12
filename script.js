@@ -123,17 +123,138 @@ async function loadSliderImages(){
   }
 }
 // ---------- call loaders on DOM ready ----------
-document.addEventListener('DOMContentLoaded', function(){
-  loadSliderImages();
+document.addEventListener('DOMContentLoaded', async function(){
+  await loadSliderImages(); // erst die Bilder für den Slider laden
+  initFilmScroller();       // dann den Scroller starten
   loadListToGrid('images-phone.txt', 'phoneGrid');
   loadListToGrid('images-desktop.txt', 'desktopGrid');
   loadListToGrid('images-justart.txt', 'justartGrid');
 });
 
   // ---------- Film scroller for homepage ----------
-  (function(){
-    var track = document.getElementById('filmTrack');
-    if(!track) return;
+  // ---------- Film scroller (aufrufbar) ----------
+function initFilmScroller(){
+  var track = document.getElementById('filmTrack');
+  if(!track) return;
+
+  // Falls schon initialisiert: versuche vorheriges state zurückzusetzen (safe)
+  try { track.style.transform = ''; } catch(e){}
+
+  // Wenn Bilder bereits mit src vorhanden sind, wir initialisieren direkt
+  var imgs = Array.prototype.slice.call(track.querySelectorAll('img[data-src]'));
+  var pending = imgs.length;
+
+  if(pending > 0){
+    // Lade imgs mit data-src
+    imgs.forEach(function(img){
+      var src = img.getAttribute('data-src');
+      img.src = encodeURI(src || '');
+      img.style.opacity = 0;
+      img.addEventListener('load', function onload(){
+        img.removeEventListener('load', onload);
+        img.classList.add('loaded');
+        img.style.opacity = '';
+        pending--;
+        if(pending <= 0) setTimeout(doInit, 10);
+      }, {passive:true});
+      img.addEventListener('error', function onerr(){
+        img.removeEventListener('error', onerr);
+        pending--;
+        if(pending <= 0) setTimeout(doInit, 10);
+      }, {passive:true});
+    });
+  } else {
+    // keine data-src images -> init sofort (z. B. wenn loadSliderImages setzte src direkt)
+    setTimeout(doInit, 10);
+  }
+
+  function doInit(){
+    // falls schon Elemente vorhanden (z.B. vorherige Init), entferne doppelte clones
+    // (wir vereinfachen: nur nochmal duplizieren wenn nötig)
+    var children = Array.prototype.slice.call(track.children || []);
+    if(children.length === 0) return; // nichts zu tun
+    // Wenn bereits doppelt vorhanden (prüfe anhand Kind-Anzahl), dann entferne spätere doppelte
+    // Einfachheitshalber: wenn mehr als 1 Durchlauf vorhanden, trimm auf original*2
+    if(children.length > 0){
+      // Ensure single set duplication: if children are not duplicated yet, duplicate them
+      var half = Math.floor(children.length / 2);
+      // naive check: if first and half+1 exist and same nodeName then assume duplicated — skip
+      if(children.length < 2 || !children[0].isEqualNode(children[children.length/2 | 0])){
+        // duplicate originals (the current set)
+        var originals = children.slice(0);
+        originals.forEach(function(c){ track.appendChild(c.cloneNode(true)); });
+      }
+    }
+
+    // measure and start animation
+    var totalWidth = 0;
+    function calcTotal(){
+      totalWidth = 0;
+      var kids = track.querySelectorAll('.film-item');
+      var half = Math.floor(kids.length / 2) || kids.length;
+      for(var i=0;i<half;i++){
+        totalWidth += (kids[i].offsetWidth || 280) + 12;
+      }
+    }
+    calcTotal();
+    window.addEventListener('resize', calcTotal);
+
+    var speed = 0.04;
+    var pos = 0;
+    var playing = true;
+    var lastRaf = performance.now();
+
+    function step(ts){
+      if(!step.last) step.last = ts;
+      var dt = ts - step.last;
+      step.last = ts;
+      lastRaf = ts;
+      if(playing && totalWidth > 0){
+        pos += speed * dt;
+        if(pos >= totalWidth) pos = pos - totalWidth;
+        track.style.transform = 'translateX(' + (-pos) + 'px)';
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+
+    // heartbeat fallback for throttled rAF
+    var heartbeat = setInterval(function(){
+      var now = performance.now();
+      if(now - lastRaf > 300 && playing && totalWidth > 0){
+        var dt = Math.min(now - lastRaf, 500);
+        pos += speed * dt;
+        if(pos >= totalWidth) pos = pos - totalWidth;
+        track.style.transform = 'translateX(' + (-pos) + 'px)';
+        lastRaf = now;
+      }
+    }, 200);
+
+    // hover overlay behaviour (if not already attached)
+    track.querySelectorAll('.film-item').forEach(function(item){
+      var img = item.querySelector('img, video');
+      if(!img) return;
+      if(item._hoverAttached) return;
+      item._hoverAttached = true;
+
+      var overlay = item.querySelector('.download-overlay');
+      if(!overlay){
+        overlay = document.createElement('div');
+        overlay.className = 'download-overlay';
+        overlay.textContent = (location.pathname === '/' || location.pathname.endsWith('index.html')) ? 'check menu for more' : 'click to download';
+        item.appendChild(overlay);
+      }
+
+      item.addEventListener('mouseenter', function(){ playing=false; overlay.classList.add('visible'); }, {passive:true});
+      item.addEventListener('mouseleave', function(){ playing=true; overlay.classList.remove('visible'); }, {passive:true});
+      item.addEventListener('touchstart', function(){ playing=false; overlay.classList.add('visible'); }, {passive:true});
+      item.addEventListener('touchend', function(){ setTimeout(function(){ playing=true; overlay.classList.remove('visible'); }, 300); }, {passive:true});
+    });
+
+    // cleanup hook: if page unload, clear heartbeat
+    window.addEventListener('beforeunload', function(){ clearInterval(heartbeat); });
+  } // doInit end
+} // initFilmScroller end
 
     // init images from data-src
     var imgs = Array.prototype.slice.call(track.querySelectorAll('img[data-src]'));
