@@ -1,249 +1,249 @@
-:root {
+:root{
   --bg: #f8f6f8;
-  --text: #2d1e33;
-  --accent: #660066;
-  --accent-hover: #b300b3;
-}
-body {
-  background: var(--bg);
-  color: var(--text);
+  --text-dark: #2d1e33;
+  --primary: #660066;
+  
+  /* hover */
+  --primary-hover: #b300b3;
 }
 
-/* Base */
-*{box-sizing:border-box}
-html,body{height:100%}
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
 body{
   margin:0;
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color:var(--text);
-  background:var(--bg);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.5;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Header banner */
-.header-banner{width:100%;display:block;overflow:hidden;position:relative;z-index:80}
-.header-banner a{display:block}
-.header-banner img{display:block;width:100%;height:auto;}
-
-/* topbar / menu button */
-.topbar {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 90px;
-  z-index: 90;
-  pointer-events: none;
+/* HEADER / BANNER */
+.header-banner img{
+  width:100%;
+  display:block;
 }
 
-.topbar .menu-btn {
-  pointer-events: all;
-  position: absolute;
-  left: 18px;
-  top: 14px;
-  background: none;
-  border: 0;
-  font-size: 56px; /* doppelt so groß */
-  color: #f8f6f8;
-  cursor: pointer;
-  padding: 6px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* TOPBAR – großer Burger */
+.topbar{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:80px;
+  z-index:300;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  pointer-events:auto;
 }
 
-.topbar .menu-btn span {
-  font-size: 14px;
-  margin-top: 4px;
-  letter-spacing: 0.06em;
+.menu-btn{
+  background:none;
+  border:0;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  padding:10px;
+  margin-left:16px;
 }
 
-.topbar .menu-btn:hover {
-  color: var(--accent-hover);
+.menu-btn .burger{
+  font-size:42px;
+  color:var(--text-dark);
 }
 
-/* Banner */
-.header-banner img {
-  display: block;
-  width: 100%;
-  height: auto;
+.menu-btn .menu-label{
+  font-size:14px;
+  color:var(--text-dark);
+  text-transform:uppercase;
+  letter-spacing:1.5px;
 }
 
-/* Side menu (drawer) */
-.side-menu {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 320px;
-  max-width: 85%;
-  background: var(--text); /* dunkelvioletter Ton */
-  color: #f8f6f8;
-  padding: 28px 20px;
-  transform: translateX(-110%);
-  transition: transform 0.28s ease;
-  z-index: 200;
-  display: flex;
-  flex-direction: column;
+.menu-btn:hover .burger,
+.menu-btn:hover .menu-label{
+  color:var(--primary-hover);
 }
 
-.side-menu.open {
-  transform: translateX(0);
+/* SIDE MENU */
+.side-menu{
+  position:fixed;
+  left:0; top:0;
+  height:100%;
+  width:320px;
+  background:var(--text-dark);
+  color:#fff;
+  transform:translateX(-110%);
+  transition:transform .3s ease;
+  z-index:400;
+  padding:30px 24px;
+  display:flex;
+  flex-direction:column;
 }
 
-.side-menu a {
-  color: #f8f6f8;
-  text-decoration: none;
-  display: block;
-  padding: 10px 0;
-  font-size: 18px;
+.side-menu.open{
+  transform:translateX(0);
 }
 
-.side-menu a:hover {
-  color: var(--accent-hover);
+.menu-heading{
+  margin:0 0 18px 0;
+  font-size:28px;
+  font-weight:600;
+  text-transform:uppercase;
 }
 
-.side-menu .bottom {
-  margin-top: auto;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 12px;
+.side-menu ul{
+  list-style:none;
+  margin:0;
+  padding:0;
 }
 
-/* Click outside to close */
-#menuOverlay {
-  position: fixed;
-  inset: 0;
-  background: transparent;
-  display: none;
-  z-index: 100;
-}
-#menuOverlay.visible {
-  display: block;
+.side-menu a{
+  color:#fff;
+  text-decoration:none;
+  font-size:20px;
+  padding:10px 0;
+  display:block;
 }
 
-/* film scroller */
-.film{height:67vh;overflow:hidden;position:relative;margin-top:0}
-.film-track{display:flex;gap:var(--gap);align-items:center;height:100%;will-change:transform;transition:transform .06s linear}
-.film-item{flex:0 0 auto;display:flex;align-items:center;justify-content:center;position:relative;min-width:280px;height:100%}
-.film-item img{height:88%;width:auto;object-fit:contain;border-radius:6px;box-shadow:0 14px 40px rgba(0,0,0,0.06);opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease;background:transparent}
-.film-item img.loaded{opacity:1;transform:none}
-
-/* overlay */
-.download-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,0.06);color:var(--bg);padding:8px 12px;border-radius:6px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s ease}
-.download-overlay.visible{opacity:1}
-
-/* category grid (defaults) */
-.download-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
-.card{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px;text-align:center}
-.card img{width:100%;height:auto;border-radius:6px;display:block}
-.download-btn{display:inline-block;margin-top:10px;padding:6px 10px;border-radius:8px;border:1px solid var(--primary);color:var(--primary);background:transparent;font-weight:600;cursor:pointer;text-decoration:none}
-
-/* Buttons: hover */
-.download-btn:hover{background:var(--primary);color:white}
-
-/* ---- individuelle Layouts ---- */
-/* Desktop: 2 per row */
-#desktopGrid.download-grid { grid-template-columns: repeat(2, 1fr); }
-#desktopGrid .card img { border-radius: 10px; width: 100%; height: auto; }
-
-/* JustArt: single column, big */
-/* Just Art – Galerie-Layout */
-#justartGrid.download-grid {
-  grid-template-columns: 1fr;
-  max-width: 900px;
-  margin: 0 auto;
-  gap: 60px; /* mehr Abstand zwischen Videos */
+.side-menu a:hover{
+  color:var(--primary-hover);
 }
 
-#justartGrid .card {
-  background: none;
-  box-shadow: none;
-  padding: 0;
+.side-menu .bottom{
+  margin-top:auto;
+  padding-top:20px;
+  border-top:1px solid rgba(255,255,255,0.2);
 }
 
-#justartGrid .card img,
-#justartGrid .card video {
-  width: 100%;
-  border-radius: 12px;
-  background: none;
-  border: none;
-  box-shadow: none;
-  object-fit: contain;
+.side-menu .bottom a{
+  font-size:18px;
 }
 
-
-/* remove black box on videos: ensure parent clean */
-.card video, .film-item video { background: transparent; border-radius:6px; }
-
-/* pages */
-.hu-page,.pastel-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:64px 20px}
-.hu-page{background:var(--text);color:var(--bg)}
-.pastel-page{background:var(--bg);color:var(--text)}
-.hu-box,.pastel-box{max-width:1000px;text-align:center}
-
-/* typography tweaks */
-h1{font-family:'Track Sans Notch', sans-serif;font-size:42px;font-weight:500;margin:0 0 0.6em;color:var(--primary)}
-h2{font-family:'Track Sans Notch', sans-serif;font-size:28px;font-weight:500;margin:0 0 0.5em;color:var(--text)}
-p{font-family:'Inter', sans-serif;font-size:16px;color:var(--text);max-width:70ch}
-nav a{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--primary);text-transform:lowercase}
-
-/* responsive */
-@media (max-width:980px){
-  .download-grid{grid-template-columns:repeat(2,1fr)}
-  .film-item{min-width:220px}
-  .topbar .menu-btn .burger{font-size:30px}
-}
-@media (max-width:640px){
-  .download-grid{grid-template-columns:1fr}
-  .topbar .menu-btn .burger{font-size:26px}
-  .topbar .menu-btn .menu-label{font-size:11px}
-  .film-item{min-width:160px}
+/* MENU OVERLAY */
+.menu-overlay{
+  position:fixed;
+  inset:0;
+  background:transparent;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .2s ease;
+  z-index:350;
 }
 
-/* video play overlay */
-.play-overlay { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:56px; color:rgba(255,255,255,0.85); pointer-events:none; transition:opacity 0.2s ease; }
-.card { position:relative; }
-
-/* video sizing (tall videos) */
-.card video { width:auto; max-width:90%; max-height:90vh; height:auto; object-fit:contain; display:block; margin:0 auto; }
-
-/* small visual polish */
-a:hover{color:var(--accent)}
-button:focus, a:focus{outline:3px solid rgba(179,0,179,0.15);outline-offset:3px}
-
-/* === TYPOGRAFIE FEINSCHLIFF === */
-h1, h2, h3 {
-  color: var(--text);
-}
-h1 {
-  font-size: 3.2rem; /* dreifach größer für About */
-  font-weight: 700;
-  text-align: center;
-}
-h2 {
-  font-size: 2rem;
-  font-weight: 600;
-}
-p {
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--text);
-  text-align: center; /* Für About-Text mittig */
+.menu-overlay.active{
+  pointer-events:auto;
+  opacity:1;
 }
 
-#menuOverlay {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity .25s ease;
-  z-index: 150;
+/* FILM STRIP HOMEPAGE */
+.film{
+  height:67vh;
+  overflow:hidden;
+  position:relative;
 }
-#menuOverlay.visible {
-  opacity: 1;
-  visibility: visible;
+
+.film-track{
+  display:flex;
+  gap:14px;
+  height:100%;
+  will-change:transform;
+}
+
+.film-item{
+  flex:0 0 auto;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.film-item img{
+  height:88%;
+  width:auto;
+  object-fit:contain;
+  border-radius:6px;
+}
+
+/* GRIDS */
+.download-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+  padding:100px 20px 40px;
+}
+
+.card{
+  background:none;
+  text-align:center;
+}
+
+.card img{
+  width:100%;
+  border-radius:8px;
+}
+
+.card video{
+  width:100%;
+  height:auto;
+  border-radius:12px;
+  background:none;
+  object-fit:contain;
+}
+
+/* Spacing für JustArt */
+#justartGrid .card{
+  margin-bottom:60px;
+}
+
+/* DOWNLOAD BUTTON */
+.download-btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 14px;
+  border:2px solid var(--primary);
+  border-radius:8px;
+  color:var(--primary);
+  text-decoration:none;
+  font-size:16px;
+}
+
+.download-btn:hover{
+  border-color:var(--primary-hover);
+  color:var(--primary-hover);
+}
+
+/* TYPO */
+h1{
+  margin-top:120px;
+  text-align:center;
+  font-size:52px;
+  font-weight:800;
+  color:var(--text-dark);
+  letter-spacing:-0.5px;
+}
+
+.about-text{
+  white-space:pre-line;
+  text-align:center;
+  max-width:700px;
+  margin:40px auto;
+  font-size:18px;
+  line-height:1.55;
+  color:var(--text-dark);
+}
+
+/* RESPONSIVE */
+@media (max-width:800px){
+  .download-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media (max-width:540px){
+  .download-grid{
+    grid-template-columns:1fr;
+  }
 }
