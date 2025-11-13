@@ -1,10 +1,12 @@
-:root{
-  --bg: #f8f5f8;        /* Hintergrund */
-  --text: #2d1e33;      /* Haupttext */
-  --primary: #660066;   /* Buttons / Links */
-  --accent: #b300b3;    /* Hover / Highlight */
-  --muted: #8a7b8a;
-  --gap: 12px;
+:root {
+  --bg: #f8f6f8;
+  --text: #2d1e33;
+  --accent: #660066;
+  --accent-hover: #b300b3;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* Base */
@@ -25,22 +27,101 @@ body{
 .header-banner a{display:block}
 .header-banner img{display:block;width:100%;height:auto;}
 
-/* Topbar / menu button */
-.topbar{position:fixed;left:0;top:10px;width:100%;height:72px;z-index:120;pointer-events:none}
-.topbar .menu-btn{pointer-events:all;position:absolute;left:14px;top:6px;background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;padding:6px;color:var(--bg)}
-.topbar .menu-btn .burger{font-size:36px;line-height:1}
-.topbar .menu-btn .menu-label{font-size:12px;color:var(--bg);text-transform:lowercase;letter-spacing:0.06em}
-.topbar .menu-btn:hover .menu-label{color:var(--primary)}
-.topbar .menu-btn:active{transform:translateY(1px)}
+/* topbar / menu button */
+.topbar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 90px;
+  z-index: 90;
+  pointer-events: none;
+}
+
+.topbar .menu-btn {
+  pointer-events: all;
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  background: none;
+  border: 0;
+  font-size: 56px; /* doppelt so groß */
+  color: #f8f6f8;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.topbar .menu-btn span {
+  font-size: 14px;
+  margin-top: 4px;
+  letter-spacing: 0.06em;
+}
+
+.topbar .menu-btn:hover {
+  color: var(--accent-hover);
+}
+
+/* Banner */
+.header-banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 /* Side menu (drawer) */
-.side-menu{position:fixed;left:0;top:0;height:100%;width:320px;max-width:85%;background:var(--text);color:var(--bg);padding:28px 20px;transform:translateX(-110%);transition:transform .28s ease;z-index:200;display:flex;flex-direction:column}
-.side-menu.open{transform:translateX(0)}
-.side-menu h3.menu-heading{margin:0 0 14px 0;text-transform:lowercase;color:var(--bg);font-family:'Track Sans Notch', sans-serif}
-.side-menu ul{list-style:none;padding:0;margin:8px 0}
-.side-menu a{color:var(--bg);text-decoration:none;display:block;padding:10px 0;font-weight:600;text-transform:lowercase}
-.side-menu a:hover{color:var(--accent)}
-.side-menu .bottom{margin-top:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:12px}
+.side-menu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 320px;
+  max-width: 85%;
+  background: var(--text); /* dunkelvioletter Ton */
+  color: #f8f6f8;
+  padding: 28px 20px;
+  transform: translateX(-110%);
+  transition: transform 0.28s ease;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.side-menu a {
+  color: #f8f6f8;
+  text-decoration: none;
+  display: block;
+  padding: 10px 0;
+  font-size: 18px;
+}
+
+.side-menu a:hover {
+  color: var(--accent-hover);
+}
+
+.side-menu .bottom {
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 12px;
+}
+
+/* Click outside to close */
+#menuOverlay {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  display: none;
+  z-index: 100;
+}
+#menuOverlay.visible {
+  display: block;
+}
 
 /* film scroller */
 .film{height:67vh;overflow:hidden;position:relative;margin-top:0}
@@ -68,9 +149,30 @@ body{
 #desktopGrid .card img { border-radius: 10px; width: 100%; height: auto; }
 
 /* JustArt: single column, big */
-#justartGrid.download-grid { grid-template-columns: 1fr; max-width: 1000px; margin: 0 auto; }
-#justartGrid .card { background: none; box-shadow: none; padding: 0; }
-#justartGrid .card img, #justartGrid .card video { width: 100%; border-radius: 6px; background: transparent; box-shadow:none; }
+/* Just Art – Galerie-Layout */
+#justartGrid.download-grid {
+  grid-template-columns: 1fr;
+  max-width: 900px;
+  margin: 0 auto;
+  gap: 60px; /* mehr Abstand zwischen Videos */
+}
+
+#justartGrid .card {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+#justartGrid .card img,
+#justartGrid .card video {
+  width: 100%;
+  border-radius: 12px;
+  background: none;
+  border: none;
+  box-shadow: none;
+  object-fit: contain;
+}
+
 
 /* remove black box on videos: ensure parent clean */
 .card video, .film-item video { background: transparent; border-radius:6px; }
@@ -110,3 +212,23 @@ nav a{font-family:'Inter',sans-serif;font-size:16px;font-weight:600;color:var(--
 /* small visual polish */
 a:hover{color:var(--accent)}
 button:focus, a:focus{outline:3px solid rgba(179,0,179,0.15);outline-offset:3px}
+
+/* === TYPOGRAFIE FEINSCHLIFF === */
+h1, h2, h3 {
+  color: var(--text);
+}
+h1 {
+  font-size: 3.2rem; /* dreifach größer für About */
+  font-weight: 700;
+  text-align: center;
+}
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  text-align: center; /* Für About-Text mittig */
+}
