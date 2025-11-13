@@ -8,12 +8,18 @@
 </head>
 <body>
   <header class="header-banner"><a href="index.html"><img src="logo2-2880x720.png" alt="logo"></a></header>
-  <div class="topbar"><button id="menuBtnPhone" class="menu-btn">☰</button></div>
+  <div class="topbar">
+    <button id="menuBtn" class="menu-btn" aria-label="menu">
+      <span class="burger" aria-hidden="true">☰</span>
+      <span class="menu-label">menu</span>
+    </button>
+  </div>
 
-  <nav id="sideMenuPhone" class="side-menu" aria-hidden="true">
-    <h3>menu</h3>
+    <!-- Side menu -->
+  <nav id="sideMenu" class="side-menu" aria-hidden="true">
+    <h3 class="menu-heading">menu</h3>
     <ul>
-      <li><a href="index.html">who tf i am</a></li>
+      <li><a href="hu.html">about</a></li>
       <li><a href="phone.html">phone wallpaper</a></li>
       <li><a href="desktop.html">desktop wallpaper</a></li>
       <li><a href="justart.html">just art</a></li>
@@ -21,6 +27,11 @@
     </ul>
     <div class="bottom"><a href="impressum.html">impressum</a></div>
   </nav>
+
+  <!-- Overlay zum Schließen des Menüs -->
+  <div id="menuOverlay"></div>
+
+  <main>
 
   <main class="pastel-page">
     <div class="pastel-box">
