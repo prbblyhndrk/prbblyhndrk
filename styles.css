@@ -1,249 +1,196 @@
+/* =========================
+   styles.css
+   Komplettes Styling für Site:
+   - Farben / Variablen
+   - Header / Menu / Overlay
+   - Film-Scroller (Startseite)
+   - Grid-Layouts (phone / desktop / justart)
+   - Social-Buttons, About-Text
+   ========================= */
+
 :root{
-  --bg: #f8f6f8;
-  --text-dark: #2d1e33;
-  --primary: #660066;
-  
-  /* hover */
-  --primary-hover: #b300b3;
+  --bg: #f8f6f8;         /* Seiten-Hintergrund */
+  --text-dark: #2d1e33;  /* Haupttext, Überschriften */
+  --primary: #660066;    /* Button-Frame & Links */
+  --primary-hover: #b300b3; /* Hover-Pink */
+  --menu-light: #f8f6f8; /* Menü-Button vor Banner */
+  --menu-dark: #2d1e33;  /* Menü-Button nach Scroll */
+  --gap: 14px;
 }
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-
+/* Base reset */
+* {box-sizing:border-box}
+html,body {height:100%}
 body{
   margin:0;
-  font-family: Inter, system-ui, sans-serif;
-  background: var(--bg);
-  color: var(--text-dark);
-  -webkit-font-smoothing: antialiased;
+  background:var(--bg);
+  color:var(--text-dark);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.5;
 }
 
-/* HEADER / BANNER */
-.header-banner img{
-  width:100%;
-  display:block;
-}
+/* Header / Banner */
+/* Banner ist ein Link auf jeder Seite */
+.header-banner{width:100%;display:block;overflow:hidden}
+.header-banner a{display:block}
+.header-banner img{display:block;width:100%;height:auto;}
 
-/* TOPBAR – großer Burger */
+/* Topbar / großer Menü-Button - Positioniert über dem Banner */
 .topbar{
-  position:fixed;
-  top:0; left:0;
-  width:100%;
-  height:80px;
-  z-index:300;
-  background:transparent;
-  display:flex;
-  align-items:center;
-  pointer-events:auto;
+  position:fixed; top:0; left:0;
+  width:100%; height:80px;
+  display:flex; align-items:center;
+  z-index:300; pointer-events:auto;
+  padding-left:14px;
 }
 
+/* Menübutton: Struktur, Default-Farben */
+/* .menu-state--light wird vom JS gesetzt, wenn Button VOR dem Banner liegt */
+/* .menu-state--dark wird gesetzt, wenn der Button über hellem Seitenbereich ist */
 .menu-btn{
-  background:none;
-  border:0;
-  cursor:pointer;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  gap:4px;
-  padding:10px;
-  margin-left:16px;
+  background:none; border:0; cursor:pointer;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  padding:8px; margin:0; font-family:inherit;
 }
-
 .menu-btn .burger{
-  font-size:42px;
-  color:var(--text-dark);
+  font-size:44px;
+  line-height:1;
+  transition:color .18s ease, transform .12s ease;
 }
-
 .menu-btn .menu-label{
-  font-size:14px;
-  color:var(--text-dark);
-  text-transform:uppercase;
-  letter-spacing:1.5px;
+  font-size:13px;
+  letter-spacing:1px;
+  text-transform:lowercase;
+  transition:color .18s ease;
 }
 
+/* Light state: Button auf Banner (hell) */
+.menu-btn.menu-state--light .burger,
+.menu-btn.menu-state--light .menu-label {
+  color: var(--menu-light);
+}
+
+/* Dark state: Button nach Scroll (dunkel) */
+.menu-btn.menu-state--dark .burger,
+.menu-btn.menu-state--dark .menu-label {
+  color: var(--menu-dark);
+}
+
+/* Hover always turns to primary-hover */
 .menu-btn:hover .burger,
 .menu-btn:hover .menu-label{
-  color:var(--primary-hover);
+  color: var(--primary-hover);
 }
 
-/* SIDE MENU */
+/* Side menu (drawer) */
 .side-menu{
-  position:fixed;
-  left:0; top:0;
-  height:100%;
-  width:320px;
-  background:var(--text-dark);
-  color:#fff;
-  transform:translateX(-110%);
-  transition:transform .3s ease;
-  z-index:400;
-  padding:30px 24px;
-  display:flex;
-  flex-direction:column;
+  position:fixed; left:0; top:0;
+  height:100%; width:320px; max-width:85%;
+  background:var(--text-dark); color:#fff;
+  transform:translateX(-110%); transition:transform .28s ease;
+  z-index:400; padding:28px 22px; display:flex; flex-direction:column;
 }
+.side-menu.open{ transform:translateX(0); }
 
-.side-menu.open{
-  transform:translateX(0);
-}
+.menu-heading{ margin:0 0 14px 0; font-size:24px; text-transform:uppercase; font-weight:700; letter-spacing:0.04em; color:#fff; }
 
-.menu-heading{
-  margin:0 0 18px 0;
-  font-size:28px;
-  font-weight:600;
-  text-transform:uppercase;
-}
-
-.side-menu ul{
-  list-style:none;
-  margin:0;
-  padding:0;
-}
-
+.side-menu ul{ list-style:none; padding:0; margin:0; }
+.side-menu li{ margin:6px 0; }
 .side-menu a{
-  color:#fff;
-  text-decoration:none;
-  font-size:20px;
-  padding:10px 0;
-  display:block;
+  color:#fff; text-decoration:none; font-size:19px; display:block; padding:8px 6px; border-radius:6px;
 }
+.side-menu a:hover{ color:var(--primary-hover); background:rgba(255,255,255,0.03); }
 
-.side-menu a:hover{
-  color:var(--primary-hover);
-}
+/* bottom (Impressum) */
+.side-menu .bottom{ margin-top:auto; padding-top:20px; border-top:1px solid rgba(255,255,255,0.08); }
+.side-menu .bottom a{ color:#fff; text-decoration:none; font-size:17px; }
 
-.side-menu .bottom{
-  margin-top:auto;
-  padding-top:20px;
-  border-top:1px solid rgba(255,255,255,0.2);
-}
-
-.side-menu .bottom a{
-  font-size:18px;
-}
-
-/* MENU OVERLAY */
+/* Blockierende Overlay: verhindert Klicks auf Banner und Seite */
 .menu-overlay{
-  position:fixed;
-  inset:0;
-  background:transparent;
-  pointer-events:none;
-  opacity:0;
-  transition:opacity .2s ease;
-  z-index:350;
+  position:fixed; inset:0; background:transparent;
+  pointer-events:none; opacity:0; transition:opacity .18s ease; z-index:380;
 }
+.menu-overlay.active{ pointer-events:auto; opacity:1; }
 
-.menu-overlay.active{
-  pointer-events:auto;
-  opacity:1;
-}
+/* Film scroller (Startseite) */
+.film{ height:67vh; overflow:hidden; position:relative; margin-top:0; display:block; }
+.film-track{ display:flex; gap:var(--gap); align-items:center; height:100%; will-change:transform; }
+.film-item{ flex:0 0 auto; height:100%; display:flex; align-items:center; justify-content:center; min-width:280px; }
+.film-item img{ height:88%; width:auto; object-fit:contain; border-radius:6px; box-shadow:0 14px 40px rgba(0,0,0,0.06); }
 
-/* FILM STRIP HOMEPAGE */
-.film{
-  height:67vh;
-  overflow:hidden;
-  position:relative;
-}
+/* Grids Default */
+.download-grid{ display:grid; gap:18px; padding:40px 20px 80px; align-items:start; }
+/* default 3 kolonnen fallback */
+.download-grid{ grid-template-columns:repeat(3,1fr); }
 
-.film-track{
-  display:flex;
-  gap:14px;
-  height:100%;
-  will-change:transform;
-}
+/* Card + media */
+.card{ background:none; text-align:center; display:flex; flex-direction:column; align-items:center; }
+.card img, .card video{ width:100%; height:auto; border-radius:10px; display:block; }
 
-.film-item{
-  flex:0 0 auto;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.film-item img{
-  height:88%;
-  width:auto;
-  object-fit:contain;
-  border-radius:6px;
-}
-
-/* GRIDS */
-.download-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
-  padding:100px 20px 40px;
-}
-
-.card{
-  background:none;
-  text-align:center;
-}
-
-.card img{
-  width:100%;
-  border-radius:8px;
-}
-
-.card video{
-  width:100%;
-  height:auto;
-  border-radius:12px;
-  background:none;
-  object-fit:contain;
-}
-
-/* Spacing für JustArt */
-#justartGrid .card{
-  margin-bottom:60px;
-}
-
-/* DOWNLOAD BUTTON */
+/* Download button style (phone & desktop only) */
 .download-btn{
-  display:inline-block;
-  margin-top:10px;
-  padding:8px 14px;
-  border:2px solid var(--primary);
-  border-radius:8px;
-  color:var(--primary);
-  text-decoration:none;
-  font-size:16px;
+  margin-top:12px; padding:10px 16px; border-radius:10px; text-decoration:none;
+  border:2px solid var(--primary); color:var(--primary); font-weight:600; display:inline-block;
 }
-
 .download-btn:hover{
-  border-color:var(--primary-hover);
-  color:var(--primary-hover);
+  background:var(--primary-hover); color:#fff; border-color:var(--primary-hover);
 }
 
-/* TYPO */
-h1{
-  margin-top:120px;
-  text-align:center;
-  font-size:52px;
-  font-weight:800;
-  color:var(--text-dark);
-  letter-spacing:-0.5px;
-}
+/* PAGE-SPECIFIC LAYOUTS */
 
+/* Phone: 2 columns, images sized to fit viewport height (no vertical scroll for each item) */
+#phoneGrid.download-grid{ grid-template-columns:repeat(2,1fr); }
+#phoneGrid .card img{ max-height: calc(100vh - 220px); object-fit:contain; }
+
+/* Desktop: single column, large images fitting viewport height */
+#desktopGrid.download-grid{ grid-template-columns: 1fr; }
+#desktopGrid .card img{ max-height: calc(100vh - 220px); object-fit:contain; }
+
+/* JustArt: single column, large, no download button */
+#justartGrid.download-grid{ grid-template-columns:1fr; gap:48px; max-width:980px; margin:0 auto; padding-bottom:120px; }
+#justartGrid .card{ padding:0; background:none; }
+#justartGrid .card img, #justartGrid .card video{ width:100%; max-height:calc(100vh - 220px); object-fit:contain; border-radius:12px; }
+
+/* Play overlay for videos (transparent icon) */
+.play-overlay{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  font-size:60px; color:rgba(255,255,255,0.85); pointer-events:none;
+  transition:opacity .15s ease;
+}
+.card{ position:relative; }
+
+/* Social big buttons */
+.social-grid{ display:flex; flex-direction:column; gap:18px; align-items:center; padding:40px 20px; }
+.social-btn{
+  width:320px; max-width:90%; padding:12px 18px; text-align:center; border-radius:10px;
+  border:2px solid var(--primary); color:var(--primary); text-decoration:none; font-weight:700;
+}
+.social-btn:hover{ background:var(--primary-hover); color:#fff; border-color:var(--primary-hover); }
+
+/* About page styling (bigger text + spacing) */
+h1{ font-size:48px; font-weight:800; color:var(--text-dark); margin:36px 0 6px 0; text-align:center; }
 .about-text{
-  white-space:pre-line;
-  text-align:center;
-  max-width:700px;
-  margin:40px auto;
-  font-size:18px;
-  line-height:1.55;
-  color:var(--text-dark);
+  max-width:760px; margin:30px auto 70px auto; text-align:center; font-size:22px; line-height:1.6; color:var(--text-dark);
 }
 
-/* RESPONSIVE */
-@media (max-width:800px){
-  .download-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
+/* Footer / misc */
+.pastel-box, .hu-box{ max-width:1100px; margin:0 auto; padding:30px; }
 
-@media (max-width:540px){
-  .download-grid{
-    grid-template-columns:1fr;
-  }
+/* Accessibility focus */
+a:focus, button:focus{ outline:3px solid rgba(179,0,179,0.12); outline-offset:3px; }
+
+/* Responsive adjustments */
+@media (max-width:900px){
+  .menu-btn .burger{ font-size:38px; }
+  .menu-btn .menu-label{ font-size:12px; }
+  #phoneGrid .card img{ max-height: calc(100vh - 200px); }
+  #desktopGrid .card img{ max-height: calc(100vh - 160px); }
+  .social-btn{ width:260px; }
+}
+@media (max-width:520px){
+  .menu-btn .burger{ font-size:34px; }
+  .menu-btn .menu-label{ font-size:11px; }
+  #phoneGrid.download-grid{ grid-template-columns:1fr; }
 }
