@@ -232,3 +232,18 @@ p {
   color: var(--text);
   text-align: center; /* Für About-Text mittig */
 }
+
+#menuOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s ease;
+  z-index: 150;
+}
+#menuOverlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
