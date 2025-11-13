@@ -1,40 +1,43 @@
 <!doctype html>
 <html lang="de">
-<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Who TF I am</title><link rel="stylesheet" href="styles.css"/></head>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>prbblyhndrk – About</title>
+<link rel="stylesheet" href="styles.css"/>
+</head>
 <body>
-  <!-- Header-Banner: fixed auf Startseite, scroll-away auf anderen Seiten (handled via CSS) -->
-  <header class="header-banner">
-    <a href="index.html" class="logo-link"><img src="logo-dark2880.png" alt="logo" id="siteLogo"></a>
-  </header>
 
-  <!-- Topbar: großer Burger + label -->
-  <div class="topbar">
-    <button id="menuBtn" class="menu-btn" aria-label="menu">
-      <span class="burger" aria-hidden="true">☰</span>
-      <span class="menu-label">menu</span>
-    </button>
-  </div>
+<header class="header-banner">
+  <img src="logo-dark2880.png" alt="logo">
+</header>
 
-  <!-- Side menu -->
-  <nav id="sideMenu" class="side-menu" aria-hidden="true">
-    <h3 class="menu-heading">menu</h3>
-    <ul>
-      <li><a href="hu.html">about</a></li>
-      <li><a href="phone.html">phone wallpaper</a></li>
-      <li><a href="desktop.html">desktop wallpaper</a></li>
-      <li><a href="justart.html">just art</a></li>
-      <li><a href="social.html">socials</a></li>
-    </ul>
-    <div class="bottom"><a href="impressum.html">impressum</a></div>
-  </nav>
+<div class="topbar">
+  <button id="menuBtn" class="menu-btn">
+    <span class="burger">☰</span>
+    <span class="menu-label">menu</span>
+  </button>
+</div>
 
-<!-- Overlay zum Schließen des Menüs -->
-<div id="menuOverlay"></div>
+<nav id="sideMenu" class="side-menu" aria-hidden="true">
+  <h3 class="menu-heading">menu</h3>
+  <ul>
+    <li><a href="hu.html">about</a></li>
+    <li><a href="phone.html">phone wallpaper</a></li>
+    <li><a href="desktop.html">desktop wallpaper</a></li>
+    <li><a href="justart.html">just art</a></li>
+    <li><a href="social.html">socials</a></li>
+  </ul>
+  <div class="bottom"><a href="impressum.html">impressum</a></div>
+</nav>
 
-  <main class="hu-page">
-    <div class="hu-box">
-      <h1>who I am</h1>
-      <p>I’m the one who feels the depth
+<div id="menuOverlay" class="menu-overlay" aria-hidden="true"></div>
+
+<main>
+  <h1>who i am</h1>
+
+  <div class="about-text">
+I’m the one who feels the depth
 where others only see the surface.
 I feel a lot – and that’s not a weakness,
 it’s my damn radar.
@@ -69,13 +72,13 @@ but I know who I am.
 ⸻
 
 And if I ever forget:
-📌 I read this.
+I read this.
 And I remember.
 
 Hendrik. One of one.
-And that’s never gonna change.</p>
-    </div>
-  </main>
+And that’s never gonna change.
+  </div>
+</main>
 
 <script src="script.js"></script>
 </body>
