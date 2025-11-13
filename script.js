@@ -35,6 +35,44 @@
     wireMenu(id, map[id]);
   });
 
+  // --- Overlay & unified menu open/close handling ---
+(function(){
+  document.addEventListener('DOMContentLoaded', function() {
+    const menu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('menuOverlay');
+    const btn = document.getElementById('menuBtn');
+
+    if (!menu || !overlay || !btn) return;
+
+    function openMenu(){
+      menu.classList.add('open');
+      menu.setAttribute('aria-hidden', 'false');
+      overlay.classList.add('visible');
+    }
+    function closeMenu(){
+      menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
+      overlay.classList.remove('visible');
+    }
+
+    // toggle on button
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      if(menu.classList.contains('open')) closeMenu(); else openMenu();
+    }, {passive:true});
+
+    // close when clicking overlay
+    overlay.addEventListener('click', function(){
+      closeMenu();
+    }, {passive:true});
+
+    // optional: close on ESC
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeMenu();
+    });
+  });
+})();
+
   // ---------- Auto-load lists for category pages ----------
   async function loadListToGrid(txtFile, gridId){
     var grid = document.getElementById(gridId);
