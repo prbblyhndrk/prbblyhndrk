@@ -1,26 +1,34 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>prbblyhndrk.com</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>prbblyhndrk.com</title>
+  <!-- Fonts: Inter (body) - Track Sans Notch muss du lokal hosten oder als Webfont einfügen -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Header-Banner: fixed auf Startseite, scroll-away auf anderen Seiten (handled via CSS) -->
   <header class="header-banner">
-    <a href="index.html"><img src="logo2-2880x720.png" alt="logo"></a>
+    <a href="index.html" class="logo-link"><img src="logo-dark2880.png" alt="logo" id="siteLogo"></a>
   </header>
 
+  <!-- Topbar: großer Burger + label -->
   <div class="topbar">
-    <button id="menuBtn" class="menu-btn" aria-label="menu">☰</button>
+    <button id="menuBtn" class="menu-btn" aria-label="menu">
+      <span class="burger" aria-hidden="true">☰</span>
+      <span class="menu-label">menu</span>
+    </button>
   </div>
 
+  <!-- Side menu -->
   <nav id="sideMenu" class="side-menu" aria-hidden="true">
-    <h3>menu</h3>
+    <h3 class="menu-heading">menu</h3>
     <ul>
-      <li><a href="hu.html">who tf i am</a></li>
-      <li><a href="phone.html">phone</a></li>
-      <li><a href="desktop.html">desktop</a></li>
+      <li><a href="hu.html">about</a></li>
+      <li><a href="phone.html">phone wallpaper</a></li>
+      <li><a href="desktop.html">desktop wallpaper</a></li>
       <li><a href="justart.html">just art</a></li>
       <li><a href="social.html">socials</a></li>
     </ul>
@@ -28,8 +36,9 @@
   </nav>
 
   <main>
+    <!-- Film scroller -->
     <section class="film" aria-label="Galerie">
-        <div id="filmTrack" class="film-track image-slider"></div>
+      <div id="filmTrack" class="film-track"></div>
     </section>
   </main>
 
