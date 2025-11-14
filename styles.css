@@ -170,9 +170,9 @@ body{
 .social-btn:hover{ background:var(--primary-hover); color:#fff; border-color:var(--primary-hover); }
 
 /* About page styling (bigger text + spacing) */
-h1{ font-size:96px; font-weight:800; color:var(--text-dark); margin:36px 0 6px 0; text-align:center; }
+h1{ font-size:80px; font-weight:800; color:var(--text-dark); margin:36px 0 6px 0; text-align:center; }
 .about-text{
-  max-width:760px; margin:30px auto 70px auto; text-align:center; font-size:44px; line-height:1.6; color:var(--text-dark);
+  max-width:760px; margin:30px auto 70px auto; text-align:center; font-size:30px; line-height:1.6; color:var(--text-dark);
 }
 
 /* About page container fix */
