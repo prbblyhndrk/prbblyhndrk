@@ -163,7 +163,7 @@
       originals.forEach(c => slider.appendChild(c.cloneNode(true)));
 
       let pos = 0;
-      const speed = 0.8; // px per frame tweak
+      const speed = 1.2; // px per frame tweak
       function step(){
         pos -= speed;
         // reset at half of scrollWidth to avoid huge numbers
