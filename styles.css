@@ -178,6 +178,11 @@ h1{ font-size:48px; font-weight:800; color:var(--text-dark); margin:36px 0 6px 0
 /* Footer / misc */
 .pastel-box, .hu-box{ max-width:1100px; margin:0 auto; padding:30px; }
 
+/* Extra Abstand unter dem About-Text */
+.hu-box {
+  padding-bottom: 50vh; 
+}
+
 /* Accessibility focus */
 a:focus, button:focus{ outline:3px solid rgba(179,0,179,0.12); outline-offset:3px; }
 
