@@ -1,6 +1,7 @@
 dark-angel.png
 dark-angel2.png
 honey-guy3.png
+leopard-diamonds8.png
 leopard-diamonds7.png
 painted-dancer.png
 alien-portrait5.png
