@@ -8,6 +8,7 @@ dark-angel2.png
 honey-guy3.png
 leopard-diamonds8.png
 leopard-diamonds7.png
+galaxy-orb.png
 painted-dancer.png
 alien-portrait5.png
 alien-portrait7.png
