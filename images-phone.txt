@@ -1,3 +1,4 @@
+dark-pegasus.png
 molten-cloud.png
 liquid-glass4.png
 dark-angel4.png
