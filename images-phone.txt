@@ -1,3 +1,7 @@
+gryphon.png
+qilin.png
+skyfox.png
+dark-pegasus3.png
 yes-to-life.png
 neon-lips.png
 dark-pegasus.png
