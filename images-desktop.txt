@@ -1,3 +1,4 @@
+sunrise.png
 dark-pegasus2.png
 cityscape.png
 nature-elve.png
