@@ -1,3 +1,6 @@
+manticore3.png
+manticore2.png
+manticore.png
 gryphon.png
 qilin.png
 skyfox.png
