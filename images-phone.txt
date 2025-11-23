@@ -1,6 +1,8 @@
+flamingo.png
+cute-alien.png
+cyborg-tiger3.png
 cyborg-tiger.png
 cyborg-tiger2.png
-cute-alien.png
 black-hole.png
 palmtrees.png
 manticore3.png
