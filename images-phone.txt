@@ -1,3 +1,5 @@
+black-hole.png
+palmtrees.png
 manticore3.png
 manticore2.png
 manticore.png
