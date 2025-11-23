@@ -1,3 +1,5 @@
+cyborg-tiger.png
+cyborg-tiger2.png
 cute-alien.png
 black-hole.png
 palmtrees.png
